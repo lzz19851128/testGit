@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.supconit.honeycomb</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.1.2</version>
+	</parent>
+
+	<groupId>hc.factory</groupId>
+	<artifactId>testGit</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.supconit.honeycomb.business</groupId>
+			<artifactId>business-platform</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+
+	 	<!-- <dependency> <groupId>javax</groupId> <artifactId>javaee-web-api</artifactId> 
+			</dependency> -->
+
+		<dependency>
+			<groupId>com.supconit.honeycomb.functions</groupId>
+			<artifactId>function-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.supconit.honeycomb.business</groupId>
+			<artifactId>business-dic</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.supconit.honeycomb.functions</groupId>
+			<artifactId>function-upload-core</artifactId>
+			<version>2.1.2</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webXml>${basedir}/target/web.xml</webXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.supconit.honeycomb.plugins</groupId>
+				<artifactId>plugin-production</artifactId>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>production</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.12.v20130726</version>
+				<configuration>
+					<stopKey>foo</stopKey>
+					<stopPort>40006</stopPort>
+					<webAppConfig>
+						<contextPath>/rvixdc</contextPath>
+					</webAppConfig>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>40007</port>
+						</connector>
+					</connectors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<daemon>true</daemon>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>group</id>
+			<name>group</name>
+			<url>http://hc.supconit.com/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<name>public</name>
+			<url>http://hc.supconit.com/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	
+</project>
